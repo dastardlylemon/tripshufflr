@@ -9,6 +9,16 @@
     var app = WinJS.Application;
     var activation = Windows.ApplicationModel.Activation;
 
+    var places = "zoo shopping_mall museum movie_theater aquarium art_gallery bicycle_store bowling_alley amusement_park");
+
+    var food = "bakery cafe food restuarant meal_delivery meal_takeaway";
+
+    var shopping = "shopping_mall store jewelry_store home_goods_store hair_care furniture_store florist clothing_store";
+
+    var feminine = "beauty_salon hair_care jewelry_store night_club spa";
+
+    var adult = "spa night_club liquor_store bar casino";
+
     app.onactivated = function (args)
     {
         if (args.detail.kind === activation.ActivationKind.launch)
