@@ -1,0 +1,13 @@
+c:\users\jsharf\documents\visual studio 2012\Projects\tripshufflr\tripshufflr\bin\Debug\resources.pri
+c:\users\jsharf\documents\visual studio 2012\Projects\tripshufflr\tripshufflr\bin\Debug\AppxManifest.xml
+c:\users\jsharf\documents\visual studio 2012\Projects\tripshufflr\tripshufflr\bin\Debug\tripshufflr.build.appxrecipe
+c:\users\jsharf\documents\visual studio 2012\Projects\tripshufflr\tripshufflr\bld\Debug\priconfig.xml.intermediate
+c:\users\jsharf\documents\visual studio 2012\Projects\tripshufflr\tripshufflr\bld\Debug\layout.resfiles.intermediate
+c:\users\jsharf\documents\visual studio 2012\Projects\tripshufflr\tripshufflr\bld\Debug\resources.resfiles.intermediate
+c:\users\jsharf\documents\visual studio 2012\Projects\tripshufflr\tripshufflr\bld\Debug\pri.resfiles.intermediate
+c:\users\jsharf\documents\visual studio 2012\Projects\tripshufflr\tripshufflr\bld\Debug\priconfig.xml
+c:\users\jsharf\documents\visual studio 2012\Projects\tripshufflr\tripshufflr\bld\Debug\layout.resfiles
+c:\users\jsharf\documents\visual studio 2012\Projects\tripshufflr\tripshufflr\bld\Debug\resources.resfiles
+c:\users\jsharf\documents\visual studio 2012\Projects\tripshufflr\tripshufflr\bld\Debug\pri.resfiles
+c:\users\jsharf\documents\visual studio 2012\Projects\tripshufflr\tripshufflr\bld\Debug\LanguageQualifiers.txt
+c:\users\jsharf\documents\visual studio 2012\Projects\tripshufflr\tripshufflr\bld\Debug\ProjectArchitectures.txt
