@@ -1,0 +1,262 @@
+@import url(http://fonts.googleapis.com/css?family=Lato:300,400,900);
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+html {
+	height: 100%;
+}
+
+body {
+	color: #fff;
+	font-family: 'Lato', sans-serif;
+	font-weight: 100;
+	font-size: 30px;
+	height: 100%;
+	background-image: url('../img/az_subtle.png');
+}
+
+#tophalf {
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	text-align: center;
+	background-image: url('../img/hero.jpg');
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+
+#logo {
+	background-image: url('../img/logo.png');
+	background-size: cover;
+	width: 382px;
+	height: 86px;
+	margin: 0 auto;
+	margin-top: 150px;
+}
+
+#logo-min {
+	background-image: url('../img/logo.png');
+	background-size: cover;
+	width: 191px;
+	height: 43px;
+	margin: 0 auto;
+	position: relative;
+	top: 20px;
+}
+
+#top-desc {
+	margin-top: 20px;
+}
+
+#search {
+	position: relative;
+	top: 30px;
+}
+
+#main-search {
+	width: 500px;
+	height: 50px;
+	border-top-left-radius: 10px;
+	border-bottom-left-radius: 10px;
+	font-size: 25px;
+	padding-left: 10px;
+	background: #ffffff; /* Old browsers */
+	background: -moz-linear-gradient(top,  #ffffff 0%, #f7f7f7 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#f7f7f7)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #ffffff 0%,#f7f7f7 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #ffffff 0%,#f7f7f7 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #ffffff 0%,#f7f7f7 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  #ffffff 0%,#f7f7f7 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f7f7f7',GradientType=0 ); /* IE6-9 */
+	border: 1px solid grey;
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+}
+
+#search-button {
+	width: 100px;
+	height: 54px;
+	border-top-right-radius: 10px;
+	border-bottom-right-radius: 10px;
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+	color: #fff;
+	position: relative;
+	bottom: 3px;
+	font-size: 20px;
+	background: #49db2b; /* Old browsers */
+	background: -moz-linear-gradient(top,  #49db2b 0%, #169e25 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#49db2b), color-stop(100%,#169e25)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #49db2b 0%,#169e25 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #49db2b 0%,#169e25 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #49db2b 0%,#169e25 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  #49db2b 0%,#169e25 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#49db2b', endColorstr='#169e25',GradientType=0 ); /* IE6-9 */
+	border: 1px solid DarkGreen;
+	border-left: none;
+}
+
+#search-button:hover {
+	background: #4ee92f; /* Old browsers */
+	background: -moz-linear-gradient(top,  #4ee92f 0%, #19c12c 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#4ee92f), color-stop(100%,#19c12c)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #4ee92f 0%,#19c12c 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #4ee92f 0%,#19c12c 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #4ee92f 0%,#19c12c 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  #4ee92f 0%,#19c12c 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4ee92f', endColorstr='#19c12c',GradientType=0 ); /* IE6-9 */
+}
+
+#search-button:active {
+	background: #169e25;
+}
+
+#curcheck {
+	position: relative;
+	top: 50px;
+	font-size: 20px;
+}
+
+#curcheck input {
+	position: relative;
+	bottom: 2px;
+	margin-right: 10px;
+}
+
+#res-header {
+	font-size: 20px;
+}
+
+#res-container {
+	background:url('../img/hero.jpg') no-repeat center center;
+	background-image: url('../img/hero.jpg');
+	width: 100%;
+    min-height:100%;
+    background-size:cover;
+   	height: 100%;
+}
+
+#center-column {
+	width: 960px;
+	height: auto;
+	margin: 0 auto;
+	position: relative;
+	top: 50px;
+	color: #000;
+	text-align: center;
+	background-image: url('../img/az_subtle.png');
+	padding: 20px;
+	border-radius: 10px;
+}
+
+#col-container {
+	padding: 0;
+	margin: 0;
+	overflow: hidden;
+	float: left;
+}
+
+#left-col {
+	
+	overflow-y: scroll;
+	overflow-x: hidden;
+	position: relative;
+	padding-right: 15px;
+	right: -30px;
+	height: 500px;
+}
+
+#detail-col {
+	width: 630px;
+	color: #000;
+	text-align: left;
+	padding-right: 20px;
+	float: right;	
+}
+
+.res-place {
+	width: 200px;
+	height: auto;
+	min-height: 50px;
+	background-color: #fff;
+	color: #000;
+	margin-bottom: 20px;
+	padding: 20px;
+	font-size: 20px;
+	text-align: left;
+}
+
+h1 {
+	font-size: 50px;
+	text-transform: uppercase;
+	font-weight: 900;
+	
+}
+
+h2 {
+	font-weight: 600;
+	text-transform: uppercase;
+
+}
+
+#detail-header {
+	background-image: url('../img/samples/96662_3.jpg');
+	height: 200px;
+	background-size: cover;
+	background-repeat: no-repeat;
+	padding: 20px;
+	color: #fff;
+	display: block;
+}
+
+#detail-header::after {
+	width: 100%;
+	height: 100%;
+	content: "";
+	background-color:;
+}
+
+#footer {
+	clear: both;	
+	position: ;
+}
