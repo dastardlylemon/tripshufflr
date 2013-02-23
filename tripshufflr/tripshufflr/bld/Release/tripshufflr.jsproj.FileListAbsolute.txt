@@ -1,0 +1,9 @@
+c:\users\jsharf\documents\visual studio 2012\Projects\tripshufflr\tripshufflr\bin\Release\resources.pri
+c:\users\jsharf\documents\visual studio 2012\Projects\tripshufflr\tripshufflr\bin\Release\AppxManifest.xml
+c:\users\jsharf\documents\visual studio 2012\Projects\tripshufflr\tripshufflr\bin\Release\tripshufflr.build.appxrecipe
+c:\users\jsharf\documents\visual studio 2012\Projects\tripshufflr\tripshufflr\bld\Release\priconfig.xml
+c:\users\jsharf\documents\visual studio 2012\Projects\tripshufflr\tripshufflr\bld\Release\layout.resfiles
+c:\users\jsharf\documents\visual studio 2012\Projects\tripshufflr\tripshufflr\bld\Release\resources.resfiles
+c:\users\jsharf\documents\visual studio 2012\Projects\tripshufflr\tripshufflr\bld\Release\pri.resfiles
+c:\users\jsharf\documents\visual studio 2012\Projects\tripshufflr\tripshufflr\bld\Release\LanguageQualifiers.txt
+c:\users\jsharf\documents\visual studio 2012\Projects\tripshufflr\tripshufflr\bld\Release\ProjectArchitectures.txt
