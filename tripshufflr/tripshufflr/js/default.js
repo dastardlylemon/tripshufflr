@@ -1,8 +1,14 @@
-﻿// For an introduction to the Blank template, see the following documentation:
+﻿
+
+// For an introduction to the Blank template, see the following documentation:
 // http://go.microsoft.com/fwlink/?LinkId=232509
 (function ()
 {
     "use strict";
+
+    var title = new Array();
+    var rating = new Array();
+    var photo = new Array();
 
     WinJS.Binding.optimizeBindingReferences = true;
 
@@ -11,7 +17,7 @@
 
     var places = "zoo shopping_mall museum movie_theater aquarium art_gallery bicycle_store bowling_alley amusement_park";
 
-    var food = "bakery cafe food restuarant meal_delivery meal_takeaway";
+    var food = "bakery cafe food restaurant meal_delivery meal_takeaway";
 
     var shopping = "shopping_mall store jewelry_store home_goods_store hair_care furniture_store florist clothing_store";
 
@@ -21,7 +27,6 @@
 
     var profile = places;
 
-    var results = new Array();
 
     var flyout;
 
@@ -39,7 +44,7 @@
                 // TODO: This application has been reactivated from suspension.
                 // Restore application state here.
             }
-            
+
 
             WinJS.UI.Fragments.render("ms-appx:///search.html", form).done(function ()
             {
@@ -63,18 +68,10 @@
         // args.setPromise().
     };
 
-    function Place(title, id, photos, rating)
-    {
-        this.title = title;
-        this.id = id;
-        this.photos = photos;
-        this.rating = rating;
-    }
-
     function randomSequence(n)
     {
         var seq = new Array(n);
-        for(var i=0; i<n; i++)
+        for (var i = 0; i < n; i++)
         {
             seq[i] = i;
         }
@@ -95,7 +92,7 @@
         //returns range in meters. default is 1000
         var range = 16000;
 
-        switch(term)
+        switch (term)
         {
             case 'street_number':
             case 'street_address':
@@ -176,12 +173,49 @@
         return range;
     }
 
+    function preload(arrayOfImages)
+    {
+        $(arrayOfImages).each(function ()
+        {
+            $('<img/>')[0].src = this;
+            // Alternatively you could use:
+            // (new Image()).src = this;
+        });
+    }
+
+    /* function htmlDecode(value)
+     {
+         if (value)
+         {
+             return $('<div />').html(value).text();
+         } else
+         {
+             return '';
+         }
+     }*/
+
     function load(i)
     {
-        var details = document.getElementById("detail-col");
-        var header = document.getElementById("");
-        
-        details += results[i].name;
+        /*var clicked = $(".res-place")[i];
+        var name = clicked.children("h3").text();
+        var web = '<a href=' + clicked.children('span').text() + '>Link</a>';
+        var img = clicked.children('img').attr('src');
+        var review = clicked.children('span').children('#review').children('p').html();
+        var auth = clicked.find('div.author').eq(0).text();
+        */
+        $('#rating').css('display', 'block');
+        $('#website').css('display', 'block');
+        $('#reviews').css('display', 'block');
+        $('#athr').css('display', 'block');
+
+
+        $('#detail-header').children('h2').text(title[i]);
+        $('#detail-details').children('#rating').text(rating[i]);
+        $('#detail-header').children('img').attr('src', photo[i]);
+
+        //$('#reviews').html(htmlDecode(review));
+        //$('#website').html(web);
+        //$('#athr').text(auth);
     }
 
     function clickHandle(eventInfo)
@@ -201,7 +235,7 @@
                            var element = document.getElementById("locname");
                            element.innerText = locName;
                            flyout.show(element, 'auto', 'center');
-                            
+
                        }
                        else
                        {
@@ -250,7 +284,7 @@
 
                            var key = "AIzaSyA49ByqroYLnOOpV59Z8FugW2qyhiQgRYY";
                            var placesurl = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=" + encodeURIComponent(key) + "&location=" + latitude + "," + longitude + "&radius=" + maxRadius + "&sensor=false&types=" + types;
-                           
+                           document.getElementById("debug").value = placesurl;
                            WinJS.xhr({ url: placesurl, responseType: 'json' }).done(
                                function complete(result)
                                {
@@ -267,33 +301,112 @@
                                        WinJS.UI.Animation.fadeOut(form).done(function ()
                                        {
                                            form.style.display = "none";
-                                           WinJS.UI.Fragments.render("ms-appx:///res.html", output).then(function()
+                                           WinJS.UI.Fragments.render("ms-appx:///res.html", output).then(function ()
                                            {
-                                           
-                                                var names = document.querySelectorAll(".res-place");
-                                                var min = length;
-                                                if (names.length < length)
-                                                {
-                                                    min = names.length;
-                                                }
-                                                
-                                                var sequence = randomSequence(min);
-                                                
-                                                for (var i = 0; i < min; i++)
-                                                {
-                                                    results[i] = new Place(query.results[sequence[i]].name, query.results[sequence[i]].id, query.results[sequence[i]].photos, query.results[sequence[i]].rating);
-                                                    names[i].innerHTML = query.results[sequence[i]].name;
-                                                    var temp = document.getElementById("r" + (i + 1));
-                                                    temp.addEventListener("click", function ()
-                                                    {
-                                                        load(i);
-                                                    }, false);
-                                                }
+
+                                               var tmp = loc.results[0].formatted_address
+                                               $('#res-header').children('h1').text(tmp.substr(0, tmp.indexOf(",")));
+
+                                               var names = document.querySelectorAll(".res-place");
+                                               var min = length;
+                                               if (names.length < length)
+                                               {
+                                                   min = names.length;
+                                               }
+                                               if (min > 3)
+                                               {
+                                                   min = 3;
+                                               }
+
+                                               var sequence = randomSequence(length);
+
+
+                                               for (var i = 0; i < min; i++)
+                                               {
+                                                   title[i] = query.results[sequence[i]].name;
+                                                   rating[i] = query.results[sequence[i]].rating;
+                                                   var photoref = query.results[sequence[i]].photos[0].photo_reference;
+                                                   photo[i] = "https://maps.googleapis.com/maps/api/place/photo?key=" + key + "&photoreference=" + photoref + "&sensor=false&maxwidth=800";
+                                               }
+
+                                               preload(photo);
+
+                                               names[1].innerHTML = query.results[sequence[0]].name;
+                                               names[3].innerHTML = query.results[sequence[1]].name;
+                                               names[4].innerHTML = query.results[sequence[2]].name;
+                                               if (length >= 3)
+                                               {
+                                                   var item = document.getElementById("r1");
+                                                   item.addEventListener("click", function ()
+                                                   {
+                                                       load(0);
+                                                   }, false);
+                                                   item = document.getElementById("r3");
+                                                   item.addEventListener("click", function ()
+                                                   {
+                                                       load(1);
+                                                   }, false);
+                                                   item = document.getElementById("r4");
+                                                   item.addEventListener("click", function ()
+                                                   {
+                                                       load(2);
+                                                   }, false);
+                                               }
+
+                                               var types = food.replace(/ /g, "|");
+                                               var key = "AIzaSyA49ByqroYLnOOpV59Z8FugW2qyhiQgRYY";
+                                               var placesurl = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=" + encodeURIComponent(key) + "&location=" + latitude + "," + longitude + "&radius=" + maxRadius + "&sensor=false&types=" + types;
+                                               WinJS.xhr({ url: placesurl, responseType: 'json' }).done(
+                                                   function complete(result)
+                                                   {
+                                                       if (result.status == 200)
+                                                       {
+                                                           var query = JSON.parse(result.responseText);
+
+                                                           var length = query.results.length;
+                                                            
+                                                           var sequence = randomSequence(length);
+
+                                                           for (var i = 3; i < 6; i++)
+                                                           {
+
+                                                               title[i] = query.results[sequence[i]].name;
+                                                               rating[i] = query.results[sequence[i]].rating;
+                                                               var photoref = query.results[sequence[i]].photos[0].photo_reference;
+                                                               photo[i] = "https://maps.googleapis.com/maps/api/place/photo?key=" + key + "&photoreference=" + photoref + "&sensor=false&maxwidth=800";
+                                                           }
+
+                                                           preload(photo);
+
+                                                           names[0].innerHTML = query.results[sequence[3]].name;
+                                                           names[2].innerHTML = query.results[sequence[4]].name;
+                                                           names[5].innerHTML = query.results[sequence[5]].name;
+
+                                                           if (length >= 3)
+                                                           {
+                                                               var item = document.getElementById("r0");
+                                                               item.addEventListener("click", function ()
+                                                               {
+                                                                   load(3);
+                                                               }, false);
+                                                               item = document.getElementById("r2");
+                                                               item.addEventListener("click", function ()
+                                                               {
+                                                                   load(4);
+                                                               }, false);
+                                                               item = document.getElementById("r5");
+                                                               item.addEventListener("click", function ()
+                                                               {
+                                                                   load(5);
+                                                               }, false);
+                                                           }
+                                                       }
+                                                   });
 
                                            });
-                                           
 
-                                           
+
+
                                        });
 
 

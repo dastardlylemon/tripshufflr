@@ -64,6 +64,7 @@
     <Content Include="images\storelogo.png" />
     <Content Include="js\default.js" />
     <Content Include="css\default.css" />
+    <Content Include="js\jquery.js" />
     <Content Include="res.html" />
     <Content Include="search.html" />
     <None Include="tripshufflr_TemporaryKey.pfx" />
