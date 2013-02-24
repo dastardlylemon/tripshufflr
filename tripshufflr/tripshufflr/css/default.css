@@ -1,22 +1,16 @@
 ﻿body
 {
-    -webkit-touch-callout: all;
-    -webkit-user-select: all;
-    -khtml-user-select: all;
-    -moz-user-select: all;
-    -ms-user-select: text;
-    overflow: scroll;
-    -ms-overflow-style: auto;
-}
-
-#debug
-{
-    width: 100%;
+    -ms-overflow-style: none;
 }
 
 #form
 {
     height: 100%;
+}
+
+#debug
+{
+    width: 100%;
 }
 /*
 @media screen and (-ms-view-state: fullscreen-landscape) {

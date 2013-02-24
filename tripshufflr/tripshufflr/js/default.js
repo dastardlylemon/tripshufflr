@@ -21,6 +21,8 @@
 
     var profile = places;
 
+    var results = new Array();
+
     var flyout;
 
     app.onactivated = function (args)
@@ -60,6 +62,14 @@
         // asynchronous operation before your application is suspended, call
         // args.setPromise().
     };
+
+    function Place(title, id, photos, rating)
+    {
+        this.title = title;
+        this.id = id;
+        this.photos = photos;
+        this.rating = rating;
+    }
 
     function randomSequence(n)
     {
@@ -166,6 +176,14 @@
         return range;
     }
 
+    function load(i)
+    {
+        var details = document.getElementById("detail-col");
+        var header = document.getElementById("");
+        
+        details += results[i].name;
+    }
+
     function clickHandle(eventInfo)
     {
         var locName = document.getElementById("main-search").value;
@@ -243,8 +261,6 @@
                                        var length = query.results.length;
                                        //resElement.innerHTML = "<p> length: " + length + "</p>\n";
 
-                                       var sequence = randomSequence(length);
-
                                        var output = document.getElementById("output");
 
                                        var form = document.getElementById("form");
@@ -260,13 +276,20 @@
                                                 {
                                                     min = names.length;
                                                 }
-
+                                                
+                                                var sequence = randomSequence(min);
+                                                
                                                 for (var i = 0; i < min; i++)
                                                 {
-                                                    var name = query.results[i].name;
-                                                    var element = "<h3>" + name + "</h3>";
-                                                    names[i].innerHTML = element;
+                                                    results[i] = new Place(query.results[sequence[i]].name, query.results[sequence[i]].id, query.results[sequence[i]].photos, query.results[sequence[i]].rating);
+                                                    names[i].innerHTML = query.results[sequence[i]].name;
+                                                    var temp = document.getElementById("r" + (i + 1));
+                                                    temp.addEventListener("click", function ()
+                                                    {
+                                                        load(i);
+                                                    }, false);
                                                 }
+
                                            });
                                            
 
