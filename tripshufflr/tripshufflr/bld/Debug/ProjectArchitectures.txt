@@ -1,1 +1,1 @@
-C:\Users\JSharf\documents\visual studio 2012\Projects\tripshufflr\tripshufflr\tripshufflr.jsproj;neutral
+C:\Users\JSharf\Documents\GitHub\tripshufflr\tripshufflr\tripshufflr\tripshufflr.jsproj;neutral
