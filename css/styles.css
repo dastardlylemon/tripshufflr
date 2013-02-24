@@ -54,7 +54,10 @@ body {
 	font-weight: 100;
 	font-size: 30px;
 	height: 100%;
-	background-image: url('../img/az_subtle.png');
+	background-image: url('../img/hero.jpg');
+	background-size: cover;
+	background-repeat: no-repeat;
+	text-align: center;
 }
 
 #tophalf {
@@ -62,15 +65,13 @@ body {
 	height: 100%;
 	overflow: hidden;
 	text-align: center;
-	background-image: url('../img/hero.jpg');
-	background-size: cover;
-	background-repeat: no-repeat;
+
 }
 
 #logo {
 	background-image: url('../img/logo.png');
-	background-repeat: no-repeat;
 	background-size: cover;
+	background-repeat: no-repeat;
 	width: 382px;
 	height: 86px;
 	margin: 0 auto;
@@ -169,11 +170,8 @@ body {
 }
 
 #res-container {
-	background:url('../img/hero.jpg') no-repeat center center;
-	background-image: url('../img/hero.jpg');
 	width: 100%;
     min-height:100%;
-    background-size:cover;
    	height: 100%;
 }
 
@@ -205,6 +203,8 @@ body {
 	padding-right: 15px;
 	right: -30px;
 	height: 500px;
+	border-top: 1px solid grey;
+	border-bottom: 1px solid grey;
 }
 
 #detail-col {
@@ -231,23 +231,32 @@ h1 {
 	font-size: 50px;
 	text-transform: uppercase;
 	font-weight: 900;
-	
+	color: #3B3B3B;
+	text-shadow: 0px 1px white;
 }
 
 h2 {
 	font-weight: 600;
 	text-transform: uppercase;
-
+	position: relative;
+	z-index: 1;	
 }
 
 #detail-header {
-	background-image: url('../img/samples/96662_3.jpg');
 	height: 200px;
-	background-size: cover;
-	background-repeat: no-repeat;
 	padding: 20px;
 	color: #fff;
 	display: block;
+	overflow: hidden;
+}
+
+
+#detail-header img {
+	width: 620px;
+	position: relative;
+	bottom: 50px;
+	right: 20px;
+	z-index: 0;
 }
 
 #detail-header::after {
