@@ -17,9 +17,11 @@
 
     var feminine = "beauty_salon hair_care jewelry_store night_club spa";
 
-    var adult = "spa night_club liquor_store bar casino";
+    var nightlife = "spa night_club liquor_store bar casino";
 
     var profile = places;
+
+    var flyout;
 
     app.onactivated = function (args)
     {
@@ -38,6 +40,8 @@
             args.setPromise(WinJS.UI.processAll());
             var myButton = document.getElementById("searchButton");
             myButton.addEventListener("click", clickHandle, false);
+            var element = document.getElementById("noplace");
+            flyout = new WinJS.UI.Flyout(element, {});
         }
     };
 
@@ -158,69 +162,97 @@
 
     function clickHandle(eventInfo)
     {
-        var loc = document.getElementById("location").value;
-        var geourl = "https://maps.googleapis.com/maps/api/geocode/json?address=" + encodeURIComponent(loc) + "&sensor=false";
+        var locName = document.getElementById("location").value;
+        var geourl = "https://maps.googleapis.com/maps/api/geocode/json?address=" + encodeURIComponent(locName) + "&sensor=false";
 
         WinJS.xhr({ url: geourl, responseType: 'json' }).done(
                function onComplete(request)
                {
                    if (request.status == 200)
                    {
-    
+
                        var loc = JSON.parse(request.responseText);
-                       var latitude = loc.results[0].geometry.location.lat;
-                       var longitude = loc.results[0].geometry.location.lng;
-
-                       var types = profile.replace(/ /g, "|");
-                       
-                       var radii = loc.results[0].address_components[0].types;
-
-                       document.getElementById("query").value = radii.join();
-
-                       var maxRadius = 0;
-                       for (var i = 0; i < radii.length; i++)
+                       if (loc.results.length <= 0)
                        {
-                           var temp = localizer(radii[i]);
-                           if (temp > maxRadius)
-                           {
-                               maxRadius = temp;
-                           }
+                           var element = document.getElementById("locname");
+                           element.innerText = locName;
+                           flyout.show(element, 'auto', 'center');
+                            
                        }
+                       else
+                       {
+                           var latitude = loc.results[0].geometry.location.lat;
+                           var longitude = loc.results[0].geometry.location.lng;
 
-                       document.getElementById("query").value += "range:" + maxRadius;
-
-                       var key = "AIzaSyA49ByqroYLnOOpV59Z8FugW2qyhiQgRYY";
-                       var placesurl = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=" + encodeURIComponent(key) + "&location=" + latitude + "," + longitude + "&radius=" + maxRadius + "&sensor=false&types=" + types;
-
-                       WinJS.xhr({ url: placesurl, responseType: 'json' }).done(
-                           function complete(result)
+                           //choose type of place depending on user input profile
+                           var prof = document.getElementById("profile").value;
+                           switch (prof)
                            {
-                               if (result.status == 200)
+                               case 'fun':
+                                   profile = places;
+                                   break;
+                               case 'food':
+                                   profile = food;
+                                   break;
+                               case 'shop':
+                                   profile = shopping;
+                                   break;
+                               case 'nightlife':
+                                   profile = nightlife;
+                                   break;
+                               case 'feminine':
+                                   profile = feminine;
+                                   break;
+                           }
+
+                           document.getElementById("query").value = profile;
+                           var types = profile.replace(/ /g, "|");
+
+                           var radii = loc.results[0].address_components[0].types;
+
+                           var maxRadius = 0;
+                           for (var i = 0; i < radii.length; i++)
+                           {
+                               var temp = localizer(radii[i]);
+                               if (temp > maxRadius)
                                {
-                                   var query = JSON.parse(result.responseText);
-                                   var resElement = document.getElementById("results");
-                                   var length = query.results.length;
-                                   resElement.innerHTML = "<p> length: " + length + "</p>\n";
-
-                                   var sequence = randomSequence(length);
-
-                                   for (var i = 0; i < length; i++)
-                                   {
-                                       var name = query.results[sequence[i]].name;
-                                       var element = "<p>" + name + "</p>";
-                                       resElement.innerHTML += element + "\n";
-                                   }
+                                   maxRadius = temp;
                                }
-                           },
-                           function onErr(result)
-                           {
+                           }
 
-                           },
-                           function progress(result)
-                           {
+                           var key = "AIzaSyA49ByqroYLnOOpV59Z8FugW2qyhiQgRYY";
+                           var placesurl = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=" + encodeURIComponent(key) + "&location=" + latitude + "," + longitude + "&radius=" + maxRadius + "&sensor=false&types=" + types;
+                           
+                           WinJS.xhr({ url: placesurl, responseType: 'json' }).done(
+                               function complete(result)
+                               {
+                                   if (result.status == 200)
+                                   {
+                                       var query = JSON.parse(result.responseText);
+                                       var resElement = document.getElementById("results");
+                                       var length = query.results.length;
+                                       resElement.innerHTML = "<p> length: " + length + "</p>\n";
 
-                           });
+                                       var sequence = randomSequence(length);
 
+                                       for (var i = 0; i < length; i++)
+                                       {
+                                           var name = query.results[i].name;
+                                           var element = "<p>" + name + "</p>";
+                                           resElement.innerHTML += element + "\n";
+                                       }
+                                   }
+                               },
+                               function onErr(result)
+                               {
+
+                               },
+                               function progress(result)
+                               {
+
+                               });
+
+                       }
                    }
                },
                function onErr(request)
