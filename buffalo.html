@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>Tripshufflr</title>
+		<meta name="description" content="The HTML5 Herald" />
+		<meta name="author" content="SitePoint" />
+		<link rel="stylesheet" href="css/styles.css" />
+		<!--[if lt IE 9]>
+		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+	</head>
+	<body>
+		<div id="res-container" />
+		<div id="logo-min"></div>
+		<div id="center-column" />
+		<div id="res-header">
+			<h1>buffalo, new york</h1>
+		</div>
+		<br />
+		<div id="col-container">
+			<div id="left-col" class="cc">
+				<!-- breakfast !-->
+				<div class="res-place">
+					Have some breakfast at ...
+					<h3><a href="http://www.duffswings.com/">Duff&#39;s</a></h3>
+					<i> Rating: 4.3 </i><br />
+				</div>
+				<div class="res-place">
+					Then check out ...
+					<h3><a href="http://www.buffalozoo.org/">The Buffalo Zoo</a></h3>
+					<i> Rating: 3.9 </i>
+				</div>
+				<!-- lunch !-->
+				<div class="res-place">
+					Grab some lunch at ...
+					<h3><a href="http://www.spotcoffee.com/">Spot Coffee</a></h3>
+					<i> Rating: 4.2 </i><br />
+				</div>
+				<div class="res-place">
+					Then go to...
+					<h3><a href="http://www.albrightknox.org/">Albright-Knox Art Gallery</a></h3>
+					<i> Rating: 4.2 </i>
+				</div>
+				<div class="res-place">
+					You should also explore ...
+					<h3><a href="http://www.sciencebuff.org/">Buffalo Museum of Science</a></h3>
+					<i> Rating: 3.9 </i>
+				</div>
+				<!-- dinner !-->
+				<div class="res-place">
+					End your day with ...
+					<h3><a href="http://kleinhansbuffalo.org/">Kleinhans Music Hall</a></h3>
+					<i> Rating: </i><br />
+				</div>
+			</div>
+		</div>
+		<div id="detail-col" class="cc">
+			<div id="detail-header">
+				<h2>Place Name Here</h2>
+				<img src="https://maps.googleapis.com/maps/api/place/photo?maxwidth=1600&amp;photoreference=CnRnAAAAJPEFf9LWZDb60f4VPKuOl1Qygi25aWIkfBJHROY1treaQGUX3MaWbF0asbZYvp0G8Xu6Y_OtlGld6i0O7wDXvRmklQ55sTsDtni8wX1UffrKf9lXp1OHx_rsl6T4EVW0Vds_imIVAcqHYrEV550YWBIQv00Vf6ZnzUdey8gPhw_OaRoUBvezjupW3Zb_WWI3IRVcnEAUqtE&amp;sensor=true&amp;key=AIzaSyClPwXqC8Tnoo3p18AdWeSLOWrjmJgqMDs" />
+			</div>
+			<div id="detail-details">
+				<p>No event selected</p>
+			</div>
+		</div>
+		<div id="footer"></div>
+		<div>
+		</div>
+	</body>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script type="text/javascript">
+	$(document).ready(function() {
+		$("div.res-place").css('cursor', 'pointer');
+		$("div.res-place").click(function(){
+    		console.log('it worked');
+    		var clicked = $(this);
+    		var name = clicked.children("h3").text();
+    		console.log(name);
+    		$('#detail-header').children('h2').text(name);
+		});
+	});
+	</script>
+</html>
