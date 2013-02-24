@@ -14,17 +14,7 @@
   <div id="res-container">
     <div id="logo-min"></div>
   	<div id="center-column">
-      <div id="res-header"><h1>buffalo, ny</h1></div>
-      <a href="#" class="show_hide"><span class="fontawesome-cog">More options</span></a><br>
-      <div id="button-panel">
-      	<h2>Not the results you were looking for?</h2><br>
-      	<form method="post"> <button type="submit" id="shuffle">reshuffle!</button> </form>
-        <button type="submit" id="adventure" onclick="window.location.href = '/broad?query=buffalo, ny&typestring=default'"><span class="fontawesome-check-empty"></span><br>Default</button>
-        <button type="submit" id="food" onclick="window.location.href = '/broad?query=buffalo, ny&typestring=food'"><span class="fontawesome-food"></span><br>Foodie</button>
-        <button type="submit" id="shopping" onclick="window.location.href = '/broad?query=buffalo, ny&typestring=shopping'"><span class="fontawesome-shopping-cart"></span><br>Shopper</button>
-        <button type="submit" id="adult" onclick="window.location.href = '/broad?query=buffalo, ny&typestring=adult'"><span class="fontawesome-glass"></span><br>Adult</button>
-      </div><br>
-
+      <div id="res-header"><h1>buffalo, ny</h1></div><br>
       <div id="col-container">
         <div id="left-col" class="cc">
           
@@ -236,6 +226,11 @@
         <div id="website"></div>
         <div id="reviews"></div>
         <div id="athr"></div>
+        <form method="post"> <button type="submit" id="shuffle"> </form>
+        <button type="submit" id="adventure" onclick="window.location.href = '/broad?query=buffalo, ny&typestring=default'">
+        <button type="submit" id="food" onclick="window.location.href = '/broad?query=buffalo, ny&typestring=food'">
+        <button type="submit" id="shopping" onclick="window.location.href = '/broad?query=buffalo, ny&typestring=shopping'">
+        <button type="submit" id="adult" onclick="window.location.href = '/broad?query=buffalo, ny&typestring=adult'">
       </div>
     </div>
     <div id="footer"></div>
@@ -268,17 +263,7 @@
         $('#reviews').html(htmlDecode(review));
         $('#website').html(web);
         $('#athr').text(auth);
-
     });
-
-
-        $("#button-panel").hide();
-        $(".show_hide").show();
- 
-    	$('.show_hide').click(function(){
-    		$("#button-panel").slideToggle();
-    	});
-
   });
 
   function htmlDecode(value) {
