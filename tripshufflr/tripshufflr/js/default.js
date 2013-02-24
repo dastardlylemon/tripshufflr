@@ -251,25 +251,26 @@
                                        WinJS.UI.Animation.fadeOut(form).done(function ()
                                        {
                                            form.style.display = "none";
-                                           WinJS.UI.Fragments.render("ms-appx:///res.html", output);
+                                           WinJS.UI.Fragments.render("ms-appx:///res.html", output).then(function()
+                                           {
                                            
+                                                var names = document.querySelectorAll(".res-place");
+                                                var min = length;
+                                                if (names.length < length)
+                                                {
+                                                    min = names.length;
+                                                }
+
+                                                for (var i = 0; i < min; i++)
+                                                {
+                                                    var name = query.results[i].name;
+                                                    var element = "<h3>" + name + "</h3>";
+                                                    names[i].innerHTML = element;
+                                                }
+                                           });
                                            
 
-                                           var names = document.querySelectorAll(".res-place");
-                                           document.getElementById("debug").value = names.join();
-                                           var min = length;
-                                           if (names.length < length)
-                                           {
-                                               min = names.length;
-                                           }
-
-                                           for (var i = 0; i < length; i++)
-                                           {
-                                               var name = query.results[i].name;
-                                               var element = "<h3>" + name + "</h3>";
-                                               
-                                               document.getElementById("output").innerHTML += element;
-                                           }
+                                           
                                        });
 
 
