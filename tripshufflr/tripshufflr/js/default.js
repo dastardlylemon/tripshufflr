@@ -37,11 +37,17 @@
                 // TODO: This application has been reactivated from suspension.
                 // Restore application state here.
             }
-            args.setPromise(WinJS.UI.processAll());
-            var myButton = document.getElementById("searchButton");
-            myButton.addEventListener("click", clickHandle, false);
-            var element = document.getElementById("noplace");
-            flyout = new WinJS.UI.Flyout(element, {});
+            
+
+            WinJS.UI.Fragments.render("ms-appx:///search.html", form).done(function ()
+            {
+                args.setPromise(WinJS.UI.processAll());
+                var myButton = document.getElementById("search-button");
+                myButton.addEventListener("click", clickHandle, false);
+                var element = document.getElementById("noplace");
+                flyout = new WinJS.UI.Flyout(element, {});
+            });
+
         }
     };
 
@@ -162,7 +168,7 @@
 
     function clickHandle(eventInfo)
     {
-        var locName = document.getElementById("location").value;
+        var locName = document.getElementById("main-search").value;
         var geourl = "https://maps.googleapis.com/maps/api/geocode/json?address=" + encodeURIComponent(locName) + "&sensor=false";
 
         WinJS.xhr({ url: geourl, responseType: 'json' }).done(
@@ -185,7 +191,8 @@
                            var longitude = loc.results[0].geometry.location.lng;
 
                            //choose type of place depending on user input profile
-                           var prof = document.getElementById("profile").value;
+                           //var prof = document.getElementById("profile").value;
+                           var prof = 'fun';
                            switch (prof)
                            {
                                case 'fun':
@@ -203,9 +210,12 @@
                                case 'feminine':
                                    profile = feminine;
                                    break;
+                               default:
+                                   profile = places;
+                                   break;
                            }
 
-                           document.getElementById("query").value = profile;
+                           //document.getElementById("query").value = profile;
                            var types = profile.replace(/ /g, "|");
 
                            var radii = loc.results[0].address_components[0].types;
@@ -229,18 +239,40 @@
                                    if (result.status == 200)
                                    {
                                        var query = JSON.parse(result.responseText);
-                                       var resElement = document.getElementById("results");
+                                       //var resElement = document.getElementById("results");
                                        var length = query.results.length;
-                                       resElement.innerHTML = "<p> length: " + length + "</p>\n";
+                                       //resElement.innerHTML = "<p> length: " + length + "</p>\n";
 
                                        var sequence = randomSequence(length);
 
-                                       for (var i = 0; i < length; i++)
+                                       var output = document.getElementById("output");
+
+                                       var form = document.getElementById("form");
+                                       WinJS.UI.Animation.fadeOut(form).done(function ()
                                        {
-                                           var name = query.results[i].name;
-                                           var element = "<p>" + name + "</p>";
-                                           resElement.innerHTML += element + "\n";
-                                       }
+                                           form.style.display = "none";
+                                           WinJS.UI.Fragments.render("ms-appx:///res.html", output);
+                                           
+                                           
+
+                                           var names = document.querySelectorAll(".res-place");
+                                           document.getElementById("debug").value = names.join();
+                                           var min = length;
+                                           if (names.length < length)
+                                           {
+                                               min = names.length;
+                                           }
+
+                                           for (var i = 0; i < length; i++)
+                                           {
+                                               var name = query.results[i].name;
+                                               var element = "<h3>" + name + "</h3>";
+                                               
+                                               document.getElementById("output").innerHTML += element;
+                                           }
+                                       });
+
+
                                    }
                                },
                                function onErr(result)
