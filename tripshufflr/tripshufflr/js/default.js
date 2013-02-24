@@ -9,6 +9,14 @@
     var title = new Array();
     var rating = new Array();
     var photo = new Array();
+    var id = new Array();
+    var review = new Array();
+    var website = new Array();
+    var auth = new Array();
+
+    var key = "AIzaSyBgGKN50nfIOuQnVgPpM6sFCYhAGsiwayU";
+
+    var BACKALREADY = 0;
 
     WinJS.Binding.optimizeBindingReferences = true;
 
@@ -183,7 +191,7 @@
         });
     }
 
-    /* function htmlDecode(value)
+     function htmlDecode(value)
      {
          if (value)
          {
@@ -192,7 +200,7 @@
          {
              return '';
          }
-     }*/
+     }
 
     function load(i)
     {
@@ -213,9 +221,22 @@
         $('#detail-details').children('#rating').text(rating[i]);
         $('#detail-header').children('img').attr('src', photo[i]);
 
-        //$('#reviews').html(htmlDecode(review));
-        //$('#website').html(web);
-        //$('#athr').text(auth);
+        $('#reviews').html(htmlDecode(review[i]));
+        $('#website').html(website[i]);
+        $('#athr').text(auth[i]);
+    }
+
+    function loadSearch()
+    {
+        var output = document.getElementById("output");
+        WinJS.UI.Animation.fadeOut(output).done(function ()
+        {
+            output.style.display = "none";
+            var form = document.getElementById("form");
+            form.style.display = "block";
+            WinJS.UI.Animation.fadeIn(form)
+            BACKALREADY = 1;
+        });
     }
 
     function clickHandle(eventInfo)
@@ -281,10 +302,7 @@
                                    maxRadius = temp;
                                }
                            }
-
-                           var key = "AIzaSyA49ByqroYLnOOpV59Z8FugW2qyhiQgRYY";
                            var placesurl = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=" + encodeURIComponent(key) + "&location=" + latitude + "," + longitude + "&radius=" + maxRadius + "&sensor=false&types=" + types;
-                           document.getElementById("debug").value = placesurl;
                            WinJS.xhr({ url: placesurl, responseType: 'json' }).done(
                                function complete(result)
                                {
@@ -301,111 +319,443 @@
                                        WinJS.UI.Animation.fadeOut(form).done(function ()
                                        {
                                            form.style.display = "none";
-                                           WinJS.UI.Fragments.render("ms-appx:///res.html", output).then(function ()
+                                           output.style.display = "block";
+                                           if (BACKALREADY == 0)
                                            {
-
-                                               var tmp = loc.results[0].formatted_address
-                                               $('#res-header').children('h1').text(tmp.substr(0, tmp.indexOf(",")));
-
-                                               var names = document.querySelectorAll(".res-place");
-                                               var min = length;
-                                               if (names.length < length)
+                                               WinJS.UI.Fragments.render("ms-appx:///res.html", output).then(function ()
                                                {
-                                                   min = names.length;
-                                               }
-                                               if (min > 3)
-                                               {
-                                                   min = 3;
-                                               }
+                                                   var tmp = loc.results[0].formatted_address
+                                                   $('#res-header').children('h1').text(tmp.substr(0, tmp.indexOf(",")));
 
-                                               var sequence = randomSequence(length);
-
-
-                                               for (var i = 0; i < min; i++)
-                                               {
-                                                   title[i] = query.results[sequence[i]].name;
-                                                   rating[i] = query.results[sequence[i]].rating;
-                                                   var photoref = query.results[sequence[i]].photos[0].photo_reference;
-                                                   photo[i] = "https://maps.googleapis.com/maps/api/place/photo?key=" + key + "&photoreference=" + photoref + "&sensor=false&maxwidth=800";
-                                               }
-
-                                               preload(photo);
-
-                                               names[1].innerHTML = query.results[sequence[0]].name;
-                                               names[3].innerHTML = query.results[sequence[1]].name;
-                                               names[4].innerHTML = query.results[sequence[2]].name;
-                                               if (length >= 3)
-                                               {
-                                                   var item = document.getElementById("r1");
-                                                   item.addEventListener("click", function ()
+                                                   var names = document.querySelectorAll(".res-place");
+                                                   var min = length;
+                                                   if (names.length < length)
                                                    {
-                                                       load(0);
-                                                   }, false);
-                                                   item = document.getElementById("r3");
-                                                   item.addEventListener("click", function ()
+                                                       min = names.length;
+                                                   }
+                                                   if (min > 3)
                                                    {
-                                                       load(1);
-                                                   }, false);
-                                                   item = document.getElementById("r4");
-                                                   item.addEventListener("click", function ()
-                                                   {
-                                                       load(2);
-                                                   }, false);
-                                               }
+                                                       min = 3;
+                                                   }
 
-                                               var types = food.replace(/ /g, "|");
-                                               var key = "AIzaSyA49ByqroYLnOOpV59Z8FugW2qyhiQgRYY";
-                                               var placesurl = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=" + encodeURIComponent(key) + "&location=" + latitude + "," + longitude + "&radius=" + maxRadius + "&sensor=false&types=" + types;
-                                               WinJS.xhr({ url: placesurl, responseType: 'json' }).done(
-                                                   function complete(result)
+                                                   var sequence = randomSequence(length);
+
+
+                                                   for (var i = 0; i < min; i++)
                                                    {
-                                                       if (result.status == 200)
+                                                       title[i] = query.results[sequence[i]].name;
+                                                       rating[i] = query.results[sequence[i]].rating;
+                                                       id[i] = query.results[sequence[i]].reference;
+                                                       if (query.results[sequence[i]].photos)
                                                        {
-                                                           var query = JSON.parse(result.responseText);
-
-                                                           var length = query.results.length;
-                                                            
-                                                           var sequence = randomSequence(length);
-
-                                                           for (var i = 3; i < 6; i++)
-                                                           {
-
-                                                               title[i] = query.results[sequence[i]].name;
-                                                               rating[i] = query.results[sequence[i]].rating;
-                                                               var photoref = query.results[sequence[i]].photos[0].photo_reference;
-                                                               photo[i] = "https://maps.googleapis.com/maps/api/place/photo?key=" + key + "&photoreference=" + photoref + "&sensor=false&maxwidth=800";
-                                                           }
-
-                                                           preload(photo);
-
-                                                           names[0].innerHTML = query.results[sequence[3]].name;
-                                                           names[2].innerHTML = query.results[sequence[4]].name;
-                                                           names[5].innerHTML = query.results[sequence[5]].name;
-
-                                                           if (length >= 3)
-                                                           {
-                                                               var item = document.getElementById("r0");
-                                                               item.addEventListener("click", function ()
-                                                               {
-                                                                   load(3);
-                                                               }, false);
-                                                               item = document.getElementById("r2");
-                                                               item.addEventListener("click", function ()
-                                                               {
-                                                                   load(4);
-                                                               }, false);
-                                                               item = document.getElementById("r5");
-                                                               item.addEventListener("click", function ()
-                                                               {
-                                                                   load(5);
-                                                               }, false);
-                                                           }
+                                                           var photoref = query.results[sequence[i]].photos[0].photo_reference;
+                                                           photo[i] = "https://maps.googleapis.com/maps/api/place/photo?key=" + key + "&photoreference=" + photoref + "&sensor=false&maxwidth=800";
                                                        }
-                                                   });
+                                                       else
+                                                       {
+                                                           photo[i] = "/images/placeholder.jpg";
+                                                       }
+                                                   }
+                                                   
+                                                    preload(photo);
 
-                                           });
+                                                   names[1].innerHTML = query.results[sequence[0]].name;
+                                                   names[3].innerHTML = query.results[sequence[1]].name;
+                                                   names[4].innerHTML = query.results[sequence[2]].name;
+                                                   if (length >= 3)
+                                                   {
+                                                       var item = document.getElementById("r1");
+                                                       item.addEventListener("click", function ()
+                                                       {
+                                                           load(0);
+                                                       }, false);
+                                                       item = document.getElementById("r3");
+                                                       item.addEventListener("click", function ()
+                                                       {
+                                                           load(1);
+                                                       }, false);
+                                                       item = document.getElementById("r4");
+                                                       item.addEventListener("click", function ()
+                                                       {
+                                                           load(2);
+                                                       }, false);
+                                                   }
+
+                                                   var types = food.replace(/ /g, "|");
+                                                   
+                                                   var placesurl = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=" + encodeURIComponent(key) + "&location=" + latitude + "," + longitude + "&radius=" + maxRadius + "&sensor=false&types=" + types;
+                                                   WinJS.xhr({ url: placesurl, responseType: 'json' }).done(
+                                                       function complete(result)
+                                                       {
+                                                           if (result.status == 200)
+                                                           {
+                                                               var query = JSON.parse(result.responseText);
+
+                                                               var length = query.results.length;
+
+                                                               var sequence = randomSequence(length);
+
+                                                               for (var i = 3; i < min+3; i++)
+                                                               {
+
+                                                                   title[i] = query.results[sequence[i]].name;
+                                                                   rating[i] = query.results[sequence[i]].rating;
+                                                                   id[i] = query.results[sequence[i]].reference;
+                                                                   if (query.results[sequence[i]].photos)
+                                                                    {
+                                                                       var photoref = query.results[sequence[i]].photos[0].photo_reference;
+                                                                       photo[i] = "https://maps.googleapis.com/maps/api/place/photo?key=" + key + "&photoreference=" + photoref + "&sensor=false&maxwidth=800";
+                                                                   }
+                                                                   else
+                                                                   {
+                                                                       photo[i] = "/images/placeholder.jpg";
+                                                                   }
+                                                               }
+                                                              
+                                                                preload(photo);
+
+                                                               names[0].innerHTML = query.results[sequence[3]].name;
+                                                               names[2].innerHTML = query.results[sequence[4]].name;
+                                                               names[5].innerHTML = query.results[sequence[5]].name;
+
+                                                               if (length >= 3)
+                                                               {
+                                                                   var item = document.getElementById("r0");
+                                                                   item.addEventListener("click", function ()
+                                                                   {
+                                                                       load(3);
+                                                                   }, false);
+                                                                   item = document.getElementById("r2");
+                                                                   item.addEventListener("click", function ()
+                                                                   {
+                                                                       load(4);
+                                                                   }, false);
+                                                                   item = document.getElementById("r5");
+                                                                   item.addEventListener("click", function ()
+                                                                   {
+                                                                       load(5);
+                                                                   }, false);
+                                                               }
+                                                               load(3);
+                                                               var infoURLBase = "https://maps.googleapis.com/maps/api/place/details/json?key=" + key;
+                                                               var a = 0;
+                                                               var infoURL = infoURLBase + "&reference=" + id[0] + "&sensor=false";
+
+                                                               WinJS.xhr({ url: infoURL, responseType: 'json' }).done(function complete(response)
+                                                               {
+                                                                   if (response.status == 200)
+                                                                   {
+                                                                       var query = JSON.parse(response.responseText);
+                                                                       website[0] = query.result.website;
+                                                                       var reviews = query.result.reviews.length;
+                                                                       var rand = Math.floor(Math.random() * reviews);
+                                                                       review[0] = query.result.reviews[rand].text;
+                                                                       auth[0] = query.result.reviews[rand].author_name;
+                                                                   }
+                                                               });
+
+                                                               a = 1;
+                                                               var infoURL = infoURLBase + "&reference=" + id[1] + "&sensor=false";
+                                                               WinJS.xhr({ url: infoURL, responseType: 'json' }).done(function complete(response)
+                                                               {
+                                                                   if (response.status == 200)
+                                                                   {
+                                                                       var query = JSON.parse(response.responseText);
+                                                                       website[1] = query.result.website;
+                                                                       var reviews = query.result.reviews.length;
+                                                                       var rand = Math.floor(Math.random() * reviews);
+                                                                       review[1] = query.result.reviews[rand].text;
+                                                                       auth[1] = query.result.reviews[rand].author_name;
+                                                                   }
+                                                               });
+
+                                                               a = 2;
+                                                               var infoURL = infoURLBase + "&reference=" + id[2] + "&sensor=false";
+                                                               WinJS.xhr({ url: infoURL, responseType: 'json' }).done(function complete(response)
+                                                               {
+                                                                   if (response.status == 200)
+                                                                   {
+                                                                       var query = JSON.parse(response.responseText);
+                                                                       website[2] = query.result.website;
+                                                                       var reviews = query.result.reviews.length;
+                                                                       var rand = Math.floor(Math.random() * reviews);
+                                                                       review[2] = query.result.reviews[rand].text;
+                                                                       auth[2] = query.result.reviews[rand].author_name;
+                                                                   }
+                                                               });
+
+                                                               a = 3;
+                                                               var infoURL = infoURLBase + "&reference=" + id[3] + "&sensor=false";
+                                                               WinJS.xhr({ url: infoURL, responseType: 'json' }).done(function complete(response)
+                                                               {
+                                                                   if (response.status == 200)
+                                                                   {
+                                                                       var query = JSON.parse(response.responseText);
+                                                                       website[3] = query.result.website;
+                                                                       var reviews = query.result.reviews.length;
+                                                                       var rand = Math.floor(Math.random() * reviews);
+                                                                       review[3] = query.result.reviews[rand].text;
+                                                                       auth[3] = query.result.reviews[rand].author_name;
+                                                                   }
+                                                               });
+
+                                                               a = 4;
+                                                               var infoURL = infoURLBase + "&reference=" + id[4] + "&sensor=false";
+                                                               WinJS.xhr({ url: infoURL, responseType: 'json' }).done(function complete(response)
+                                                               {
+                                                                   if (response.status == 200)
+                                                                   {
+                                                                       var query = JSON.parse(response.responseText);
+                                                                       website[4] = query.result.website;
+                                                                       var reviews = query.result.reviews.length;
+                                                                       var rand = Math.floor(Math.random() * reviews);
+                                                                       review[4] = query.result.reviews[rand].text;
+                                                                       auth[4] = query.result.reviews[rand].author_name;
+                                                                   }
+                                                               });
+
+                                                               a = 5;
+                                                               var infoURL = infoURLBase + "&reference=" + id[5] + "&sensor=false";
+                                                               WinJS.xhr({ url: infoURL, responseType: 'json' }).done(function complete(response)
+                                                               {
+                                                                   if (response.status == 200)
+                                                                   {
+                                                                       var query = JSON.parse(response.responseText);
+                                                                       website[5] = query.result.website;
+                                                                       var reviews = query.result.reviews.length;
+                                                                       var rand = Math.floor(Math.random() * reviews);
+                                                                       review[5] = query.result.reviews[rand].text;
+                                                                       auth[5] = query.result.reviews[rand].author_name;
+                                                                   }
+                                                               });
+
+                                                               var a = document.getElementById("back");
+                                                               a.addEventListener("click", loadSearch, false);
+                                                           }
+                                                       });
 
 
+                                               });
+
+                                           }
+                                           else
+                                           {
+                                               
+                                               WinJS.UI.Animation.fadeIn(output).then(function ()
+                                               {
+                                                   var tmp = loc.results[0].formatted_address
+                                                   $('#res-header').children('h1').text(tmp.substr(0, tmp.indexOf(",")));
+
+                                                   var names = document.querySelectorAll(".res-place");
+                                                   var min = length;
+                                                   if (names.length < length)
+                                                   {
+                                                       min = names.length;
+                                                   }
+                                                   if (min > 3)
+                                                   {
+                                                       min = 3;
+                                                   }
+
+                                                   var sequence = randomSequence(length);
+
+
+                                                   for (var i = 0; i < min; i++)
+                                                   {
+                                                       title[i] = query.results[sequence[i]].name;
+                                                       rating[i] = query.results[sequence[i]].rating;
+                                                       id[i] = query.results[sequence[i]].reference;
+                                                       if (query.results[sequence[i]].photos)
+                                                       {
+                                                           var photoref = query.results[sequence[i]].photos[0].photo_reference;
+                                                           photo[i] = "https://maps.googleapis.com/maps/api/place/photo?key=" + key + "&photoreference=" + photoref + "&sensor=false&maxwidth=800";
+                                                       }
+                                                       else
+                                                       {
+                                                           photo[i] = "/images/placeholder.jpg";
+                                                       }
+                                                   }
+                                                   
+                                                    preload(photo);
+
+                                                   names[1].innerHTML = query.results[sequence[0]].name;
+                                                   names[3].innerHTML = query.results[sequence[1]].name;
+                                                   names[4].innerHTML = query.results[sequence[2]].name;
+                                                   if (length >= 3)
+                                                   {
+                                                       var item = document.getElementById("r1");
+                                                       item.addEventListener("click", function ()
+                                                       {
+                                                           load(0);
+                                                       }, false);
+                                                       item = document.getElementById("r3");
+                                                       item.addEventListener("click", function ()
+                                                       {
+                                                           load(1);
+                                                       }, false);
+                                                       item = document.getElementById("r4");
+                                                       item.addEventListener("click", function ()
+                                                       {
+                                                           load(2);
+                                                       }, false);
+                                                   }
+                                                   
+                                                   
+                                                   var types = food.replace(/ /g, "|");
+                                                   var placesurl = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=" + encodeURIComponent(key) + "&location=" + latitude + "," + longitude + "&radius=" + maxRadius + "&sensor=false&types=" + types;
+                                                   WinJS.xhr({ url: placesurl, responseType: 'json' }).done(
+                                                       function complete(result)
+                                                       {
+                                                           if (result.status == 200)
+                                                           {
+                                                               var query = JSON.parse(result.responseText);
+
+                                                               var length = query.results.length;
+
+                                                               var sequence = randomSequence(length);
+
+                                                               for (var i = 3; i < min+3; i++)
+                                                               {
+
+                                                                   title[i] = query.results[sequence[i]].name;
+                                                                   rating[i] = query.results[sequence[i]].rating;
+                                                                   id[i] = query.results[sequence[i]].reference;
+                                                                   if (query.results[sequence[i]].photos)
+                                                                   {
+                                                                       var photoref = query.results[sequence[i]].photos[0].photo_reference;
+                                                                       photo[i] = "https://maps.googleapis.com/maps/api/place/photo?key=" + key + "&photoreference=" + photoref + "&sensor=false&maxwidth=800";
+                                                                   }
+                                                                   else
+                                                                   {
+                                                                       photo[i] = "/images/placeholder.jpg";
+                                                                   }
+                                                               }
+                                                              
+                                                                preload(photo);
+
+                                                               names[0].innerHTML = query.results[sequence[3]].name;
+                                                               names[2].innerHTML = query.results[sequence[4]].name;
+                                                               names[5].innerHTML = query.results[sequence[5]].name;
+
+                                                               if (length >= 3)
+                                                               {
+                                                                   var item = document.getElementById("r0");
+                                                                   item.addEventListener("click", function ()
+                                                                   {
+                                                                       load(3);
+                                                                   }, false);
+                                                                   item = document.getElementById("r2");
+                                                                   item.addEventListener("click", function ()
+                                                                   {
+                                                                       load(4);
+                                                                   }, false);
+                                                                   item = document.getElementById("r5");
+                                                                   item.addEventListener("click", function ()
+                                                                   {
+                                                                       load(5);
+                                                                   }, false);
+                                                               }
+                                                               load(3);
+                                                               var infoURLBase = "https://maps.googleapis.com/maps/api/place/details/json?key=" + key;
+                                                               var a = 0;
+                                                               var infoURL = infoURLBase + "&reference=" + id[0] + "&sensor=false";
+
+                                                               WinJS.xhr({ url: infoURL, responseType: 'json' }).done(function complete(response)
+                                                               {
+                                                                   if (response.status == 200)
+                                                                   {
+                                                                       var query = JSON.parse(response.responseText);
+                                                                       website[0] = query.result.website;
+                                                                       var reviews = query.result.reviews.length;
+                                                                       var rand = Math.floor(Math.random() * reviews);
+                                                                       review[0] = query.result.reviews[rand].text;
+                                                                       auth[0] = query.result.reviews[rand].author_name;
+                                                                   }
+                                                               });
+
+                                                               a = 1;
+                                                               var infoURL = infoURLBase + "&reference=" + id[1] + "&sensor=false";
+                                                               WinJS.xhr({ url: infoURL, responseType: 'json' }).done(function complete(response)
+                                                               {
+                                                                   if (response.status == 200)
+                                                                   {
+                                                                       var query = JSON.parse(response.responseText);
+                                                                       website[1] = query.result.website;
+                                                                       var reviews = query.result.reviews.length;
+                                                                       var rand = Math.floor(Math.random() * reviews);
+                                                                       review[1] = query.result.reviews[rand].text;
+                                                                       auth[1] = query.result.reviews[rand].author_name;
+                                                                   }
+                                                               });
+
+                                                               a = 2;
+                                                               var infoURL = infoURLBase + "&reference=" + id[2] + "&sensor=false";
+                                                               WinJS.xhr({ url: infoURL, responseType: 'json' }).done(function complete(response)
+                                                               {
+                                                                   if (response.status == 200)
+                                                                   {
+                                                                       var query = JSON.parse(response.responseText);
+                                                                       website[2] = query.result.website;
+                                                                       var reviews = query.result.reviews.length;
+                                                                       var rand = Math.floor(Math.random() * reviews);
+                                                                       review[2] = query.result.reviews[rand].text;
+                                                                       auth[2] = query.result.reviews[rand].author_name;
+                                                                   }
+                                                               });
+
+                                                               a = 3;
+                                                               var infoURL = infoURLBase + "&reference=" + id[3] + "&sensor=false";
+                                                               WinJS.xhr({ url: infoURL, responseType: 'json' }).done(function complete(response)
+                                                               {
+                                                                   if (response.status == 200)
+                                                                   {
+                                                                       var query = JSON.parse(response.responseText);
+                                                                       website[3] = query.result.website;
+                                                                       var reviews = query.result.reviews.length;
+                                                                       var rand = Math.floor(Math.random() * reviews);
+                                                                       review[3] = query.result.reviews[rand].text;
+                                                                       auth[3] = query.result.reviews[rand].author_name;
+                                                                   }
+                                                               });
+
+                                                               a = 4;
+                                                               var infoURL = infoURLBase + "&reference=" + id[4] + "&sensor=false";
+                                                               WinJS.xhr({ url: infoURL, responseType: 'json' }).done(function complete(response)
+                                                               {
+                                                                   if (response.status == 200)
+                                                                   {
+                                                                       var query = JSON.parse(response.responseText);
+                                                                       website[4] = query.result.website;
+                                                                       var reviews = query.result.reviews.length;
+                                                                       var rand = Math.floor(Math.random() * reviews);
+                                                                       review[4] = query.result.reviews[rand].text;
+                                                                       auth[4] = query.result.reviews[rand].author_name;
+                                                                   }
+                                                               });
+
+                                                               a = 5;
+                                                               var infoURL = infoURLBase + "&reference=" + id[5] + "&sensor=false";
+                                                               WinJS.xhr({ url: infoURL, responseType: 'json' }).done(function complete(response)
+                                                               {
+                                                                   if (response.status == 200)
+                                                                   {
+                                                                       var query = JSON.parse(response.responseText);
+                                                                       website[5] = query.result.website;
+                                                                       var reviews = query.result.reviews.length;
+                                                                       var rand = Math.floor(Math.random() * reviews);
+                                                                       review[5] = query.result.reviews[rand].text;
+                                                                       auth[5] = query.result.reviews[rand].author_name;
+                                                                   }
+                                                               });
+
+                                                               var a = document.getElementById("back");
+                                                               a.addEventListener("click", loadSearch, false);
+                                                           }
+                                                       });
+
+
+                                               });
+                                           }
 
                                        });
 

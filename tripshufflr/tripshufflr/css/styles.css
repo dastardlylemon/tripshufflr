@@ -55,7 +55,7 @@ body {
 	font-size: 30px;
 	height: 100%;
 	background-image: url('../images/hero.jpg');
-	background-size: cover;
+	background-size: cover; 
 	background-repeat: no-repeat;
 	text-align: center;
 }
@@ -83,9 +83,16 @@ body {
 	background-size: cover;
 	width: 191px;
 	height: 43px;
-	margin: 0 auto;
 	position: relative;
 	top: 20px;
+    left: 100px;
+}
+
+button.win-backbutton
+{
+    position: absolute;
+    left: 20px;
+    top: 20px;
 }
 
 #top-desc {
@@ -113,7 +120,6 @@ body {
 	background: linear-gradient(to bottom,  #ffffff 0%,#f7f7f7 100%); /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f7f7f7',GradientType=0 ); /* IE6-9 */
 	border: 1px solid grey;
-	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
 }
 
 #search-button {
@@ -208,8 +214,7 @@ body {
 }
 
 #detail-col {
-	width: 630px;
-	color: #000;
+	width: 1600px;
 	text-align: left;
 	padding-right: 20px;
 	float: right;	
@@ -218,7 +223,7 @@ body {
 .res-place {
 	width: 200px;
 	height: auto;
-	min-height: 50px;
+	min-height: 30px;
 	background-color: #fff;
 	color: #000;
 	margin-bottom: 20px;
@@ -247,34 +252,48 @@ h2 {
 }
 
 #detail-header {
-	width: 620px;
-	height: 280px;
-	padding: 20px;
+	max-width: 1600px;
+    height: 990px;
 	color: #fff;
 	display: block;
 	overflow: hidden;
-	position: relative;
+    position: relative;
 }
 
 #detail-header h2 {
 	text-shadow: 0px 0px 20px #3b3b3b;
+    position: relative;
+    top: 20px;
+    left: 20px;
+    font-size: 50px;
 }
 
 
-#detail-header images {
+#detail-header img {
 	width: 100%;
+    height: auto;
 	position: absolute;
-	bottom: 50px;
-	right: 20px;
+	bottom: 100px;
 	z-index: 0;
 }
 
 #detail-details {
 	font-size: 20px;
-	margin-top: -40px;
+    width: 1560px;
 	line-height: 1.3;
-	position: relative;
+	position: absolute;
+    bottom: 110px;
+    margin: 0 auto;
 	z-index: 50;
+    padding: 20px;
+
+    color: #fff;
+    font-size: 30px;
+
+    text-shadow: 0px 0px 20px #3b3b3b;
+background: -ms-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0) 1%,rgba(0,0,0,0.65) 100%); /* IE10+ */
+background: linear-gradient(to bottom,  rgba(0,0,0,0) 0%,rgba(0,0,0,0) 1%,rgba(0,0,0,0.65) 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#a6000000',GradientType=0 ); /* IE6-9 */
 }
 
 #rating, #website, #reviews, #athr {
@@ -284,8 +303,8 @@ h2 {
 #rating::before {
 	content: "RATING: ";
 	font-weight: 900;
-	color: #3b3b3b;
-	font-size: 15px;
+	color: #fff;
+	font-size: 30px;
 }
 
 #rating {
@@ -294,6 +313,8 @@ h2 {
 
 #website {
 	float: right;
+    position: absolute;
+    right: 20px;
 }
 
 #reviews {
@@ -314,18 +335,17 @@ h2 {
 #reviews::before {
 	content: "REVIEW: ";
 	font-weight: 900;
-	color: #3B3B3B;
-	font-size: 15px;
+	color: #fff;
+	font-size: 30px;
 }
 
 #website::before {
 	content: "WEBSITE: ";
 	font-weight: 900;
-	color: #3B3B3B;
-	font-size: 15px;
+	color: #fff;
+	font-size: 30px;
 }
 
 #footer {
 	clear: both;	
-	position: ;
 }
