@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Tripshufflr</title>
+  <meta name="description" content="The HTML5 Herald">
+  <meta name="author" content="SitePoint">
+  <link rel="stylesheet" href="css/styles.css">
+  <!--[if lt IE 9]>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div id="res-container">
+    <a href="/"><div id="logo-min"></div></a>
+  	<div id="center-column">
+      <div id="res-header"><h1>{{activity_type}} in {{location}}</h1></div><br>
+
+      <a href="#" class="show_hide"><span class="fontawesome-cog">More options</span></a>
+      <div id="button-panel">
+        <h2>Not the results you were looking for?</h2><br>
+        <form method="post"> <button type="submit" id="shuffle">reshuffle!</button> </form>
+        <button type="submit" id="adventure" onclick="window.location.href = '/broad?query={{location}}&typestring=default'"><span class="fontawesome-globe"></span><br>Adventure</button>
+        <button type="submit" id="food" onclick="window.location.href = '/broad?query={{location}}&typestring=food'"><span class="fontawesome-food"></span><br>Foodie</button>
+        <button type="submit" id="shopping" onclick="window.location.href = '/broad?query={{location}}&typestring=shopping'"><span class="fontawesome-shopping-cart"></span><br>Shopper</button>
+        <button type="submit" id="adult" onclick="window.location.href = '/broad?query={{location}}&typestring=adult'"><span class="fontawesome-glass"></span><br>Adult</button>
+      </div>
+      <div id="col-container">
+        <div id="left-col" class="cc">
+          {% for place in places %}
+          <div class="res-place">
+            <h3>{{place['name']}}</h3>
+            <div class="address">{{place['formatted_address']}}</div>
+            <span>{{place['website']}}</span>
+            <i> {{place['rating']}} </i><br>
+            {% if "photos" in place %}
+            <img src="{{photo_url}}{{place['photos'][0]['photo_reference']}}">
+            {% endif %}
+            <span> 
+              {% for r in place['reviews'] %}
+              <div id="review">
+                <div class="author">{{r['author_name']}}</div>
+                <p class= "text">{{r['text']}}</p>
+              </div>
+              {% endfor %}
+            </span>
+          </div>
+          {% endfor %}
+          
+        </div>
+    </div>
+     <div id="detail-col" class="cc">
+      <div id="detail-header">
+        <h2></h2>
+        <img src="img/placeholder.jpg" />
+      </div>
+      <div id="detail-details">
+        <div id="address"></div>
+        <div id="rating"></div>
+        <div id="website"></div>
+        <div id="reviews"></div>
+        <div id="athr"></div>
+      </div>
+    </div>
+    <div id="footer"></div>
+    <div>
+    </div>
+  </body>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script type="text/javascript">
+  $(document).ready(function() {
+    $("div.res-place").css('cursor', 'pointer');
+    $("div.res-place").click(function(){
+        var clicked = $(this);
+        var name = clicked.children("h3").text();
+        var web = '<a href=' + clicked.children('span').text() + '>Link</a>';
+        var img = clicked.children('img').attr('src');
+        var review = clicked.children('span').children('#review').children('p').html();
+        var auth = clicked.find('div.author').eq(0).text();
+        //var address = clicked.children('div.address').text();
+
+        //console.log(address);
+        console.log(review);
+        console.log(name);
+
+        //$('#address').css('display', 'block');
+        $('#rating').css('display', 'block');
+        $('#website').css('display', 'block');
+        //$('#reviews').css('display', 'block');
+        //$('#athr').css('display', 'block');
+
+        $('#detail-header').children('h2').text(name);
+        $('#detail-details').children('#rating').text(clicked.children('i').text());
+        if (img)
+          $('#detail-header').children('img').attr('src', img);
+        else
+          $('#detail-header').children('img').attr('src', 'img/placeholder.jpg');
+        $('#reviews').html(htmlDecode(review));
+        $('#website').html(web);
+        $('#athr').text(auth);
+        $('#address').text(address);
+
+    });
+
+
+        $("#button-panel").hide();
+        $(".show_hide").show();
+ 
+      $('.show_hide').click(function(){
+        $("#button-panel").slideToggle();
+      });
+
+  });
+
+  function htmlDecode(value) {
+    if (value) {
+        return $('<div />').html(value).text();
+    } else {
+        return '';
+    }
+  }
+  </script>
+</html>

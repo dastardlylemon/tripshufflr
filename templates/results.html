@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Tripshufflr</title>
+  <meta name="description" content="The HTML5 Herald">
+  <meta name="author" content="SitePoint">
+  <link rel="stylesheet" href="css/styles.css">
+  <!--[if lt IE 9]>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div id="res-container">
+    <a href="/"><div id="logo-min"></div></a>
+    <div id="center-column">
+      <div id="res-header"><h1>{{location}}</h1></div>
+      <a href="#" class="show_hide"><span class="fontawesome-cog">More options</span></a><br>
+      <div id="button-panel">
+        <h2>Not the results you were looking for?</h2><br>
+        <form method="post"> <button type="submit" id="shuffle">reshuffle!</button> </form>
+        <button type="submit" id="adventure" onclick="window.location.href = '/broad?query={{location}}&typestring=default'"><span class="fontawesome-globe"></span><br>Adventure</button>
+        <button type="submit" id="food" onclick="window.location.href = '/broad?query={{location}}&typestring=food'"><span class="fontawesome-food"></span><br>Foodie</button>
+        <button type="submit" id="shopping" onclick="window.location.href = '/broad?query={{location}}&typestring=shopping'"><span class="fontawesome-shopping-cart"></span><br>Shopper</button>
+        <button type="submit" id="adult" onclick="window.location.href = '/broad?query={{location}}&typestring=adult'"><span class="fontawesome-glass"></span><br>Adult</button>
+      </div><br>
+      <div id="col-container">
+        <div id="left-col" class="cc">
+          
+          <!-- breakfast !-->
+          <div class="res-place">
+            <div>Have some breakfast at </div>
+            <h3>{{meals[0]['name']}}</h3>
+            <span>{{meals[0]['website']}}</span>
+            <div class="address">{{meals[0]['formatted_address']}}</div>
+            <i> {{meals[0]['rating']}} </i><br>
+            {% if "photos" in meals[0] %}
+            <img src="{{photo_url}}{{meals[0]['photos'][0]['photo_reference']}}">
+            {% endif %}
+            <span> 
+              {% for r in meals[0]['reviews'] %}
+              <div id="review">
+                <div class="author">{{r['author_name']}}</div>
+                <p class= "text">{{r['text']}}</p>
+              </div>
+              {% endfor %}
+            </span>
+          </div>
+
+          <div class="res-place">
+            <div>Then check out </div>
+            <h3>{{places[0]['name']}}</h3>
+            <span>{{places[0]['website']}}</span>
+            <div class = "address">{{places[0]['formatted_address']}}</div>
+            <i> {{places[0]['rating']}} </i>
+            {% if "photos" in places[0] %}
+            <img src="{{photo_url}}{{places[0]['photos'][0]['photo_reference']}}">
+            {% endif %}
+            <span> 
+              {% for r in places[0]['reviews'] %}
+              <div id="review">
+                <div class="author">{{r['author_name']}}</div>
+                <p class= "text">{{r['text']}}</p>
+              </div>
+              {% endfor %}
+            </span>
+          </div>
+
+          <!-- lunch !-->
+          <div class="res-place">
+            <div>Grab some lunch at </div>
+            <h3>{{meals[1]['name']}}</h3>
+            <span>{{meals[1]['website']}}</span>
+            <div class = "address">{{meals[1]['formatted_address']}}</div>
+            <i> {{meals[1]['rating']}} </i><br>
+            {% if "photos" in meals[1] %}
+            <img src="{{photo_url}}{{meals[1]['photos'][0]['photo_reference']}}">
+            {% endif %}
+            <span> 
+              {% for r in meals[1]['reviews'] %}
+              <div id="review">
+                <div class="author">{{r['author_name']}}</div>
+                <p class= "text">{{r['text']}}</p>
+              </div>
+              {% endfor %}
+            </span>
+          </div>
+
+
+          <div class="res-place">
+            <div>Then go to </div>
+            <h3>{{places[1]['name']}}</h3>
+            <span>{{places[1]['website']}}</span>
+            <div class = "address">{{places[1]['formatted_address']}}</div>
+            <i> {{places[1]['rating']}} </i>
+            {% if "photos" in places[1] %}
+            <img src="{{photo_url}}{{places[1]['photos'][0]['photo_reference']}}">
+            {% endif %}
+            <span> 
+              {% for r in places[1]['reviews'] %}
+              <div id="review">
+                <div class="author">{{r['author_name']}}</div>
+                <p class= "text">{{r['text']}}</p>
+              </div>
+              {% endfor %}
+            </span>
+          </div>
+
+          <div class="res-place">
+            <div>You should also explore </div>
+            <h3>{{places[2]['name']}}</h3>
+            <span>{{places[2]['website']}}</span>
+            <div class = "address">{{places[2]['formatted_address']}}</div>
+            <i> {{places[2]['rating']}} </i>
+            {% if "photos" in places[2] %}
+            <img src="{{photo_url}}{{places[2]['photos'][0]['photo_reference']}}">
+            {% endif %}
+            <span> 
+              {% for r in places[2]['reviews'] %}
+              <div id="review">
+                <div class="author">{{r['author_name']}}</div>
+                <p class= "text">{{r['text']}}</p>
+              </div>
+              {% endfor %}
+            </span>
+          </div>
+
+          <!-- dinner !-->
+          <div class="res-place">
+            <div>End your day with </div>
+            <h3>{{meals[2]['name']}}</h3>
+            <span>{{meals[2]['website']}}</span>
+            <div class = "address">{{meals[2]['formatted_address']}}</div>
+            <i> {{meals[2]['rating']}} </i><br>
+            {% if "photos" in meals[2] %}
+            <img src="{{photo_url}}{{meals[2]['photos'][0]['photo_reference']}}">
+            {% endif %}
+            <span> 
+              {% for r in meals[2]['reviews'] %}
+              <div id="review">
+                <div class="author">{{r['author_name']}}</div>
+                <p class= "text">{{r['text']}}</p>
+              </div>
+              {% endfor %}
+            </span>
+          </div>
+          
+        </div>
+    </div>
+    <div id="detail-col" class="cc">
+      <div id="detail-header">
+        <h2></h2>
+        <img src="img/placeholder.jpg" />
+      </div>
+      <div id="detail-details">
+        <div id="address"></div>
+        <div id="rating"></div>
+        <div id="website"></div>
+        <div id="reviews"></div>
+        <div id="athr"></div>
+      </div>
+    </div>
+    <div id="footer"></div>
+    <div>
+    </div>
+  </body>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script type="text/javascript">
+  $(document).ready(function() {
+    $("div.res-place").css('cursor', 'pointer');
+    $("div.res-place").click(function(){
+        var clicked = $(this);
+        var name = clicked.children("h3").text();
+        var web = '<a href=' + clicked.children('span').text() + '>Link</a>';
+        var img = clicked.children('img').attr('src');
+        var review = clicked.children('span').children('#review').children('p').html();
+        var auth = clicked.find('div.author').eq(0).text();
+        var address = clicked.children('div.address').text();
+
+        console.log(address);
+
+        //console.log(review);
+        console.log(name);
+
+        $('#address').css('display', 'block');
+        $('#rating').css('display', 'block');
+        $('#website').css('display', 'block');
+        $('#reviews').css('display', 'block');
+        $('#athr').css('display', 'block');
+
+        $('#detail-header').children('h2').text(name);
+        $('#detail-details').children('#rating').text(clicked.children('i').text());
+        if (img)
+          $('#detail-header').children('img').attr('src', img);
+        else
+          $('#detail-header').children('img').attr('src', 'img/placeholder.jpg');
+        $('#reviews').html(htmlDecode(review));
+        $('#website').html(web);
+        $('#athr').text(auth);
+        $('#address').text(address);
+    });
+
+
+        $("#button-panel").hide();
+        $(".show_hide").show();
+ 
+      $('.show_hide').click(function(){
+        $("#button-panel").slideToggle();
+      });
+
+  });
+
+  function htmlDecode(value) {
+    if (value) {
+        return $('<div />').html(value).text();
+    } else {
+        return '';
+    }
+  }
+  </script>
+</html>

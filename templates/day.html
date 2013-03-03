@@ -1,0 +1,39 @@
+<html>
+<head>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=true"></script>
+<title>
+	tripShufflr
+</title>
+</head>
+<body>
+
+
+<form method = "get">
+	<label for="location">Location: </label>
+	<input type="text" id="location" name="location">
+  <input type="submit" value="Search!"><br>
+</form><br>
+{{radius}}
+<h1>Foods</h1>
+<img src="https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference={{photo}}&sensor=true&key=AIzaSyClPwXqC8Tnoo3p18AdWeSLOWrjmJgqMDs">
+  {% for meal in meals %}
+  <div>
+  <b>{{meal['name']}}</b> at {{meal['formatted_address']}}
+  <br><a href="{{meal['website']}}">Website</a>
+  <i> Rating: </i> {{meal['rating']}} <br>
+  {{meal['types']}}
+  </div><br>
+  {% endfor %}
+
+<h1>Activities</h1>
+  {% for activity in activities %}
+  <div>
+  <b>{{activity['name']}}</b> at {{activity['formatted_address']}}
+  <br><a href="{{activity['website']}}">Website</a><br>
+  <i> Rating: </i> {{activity['rating']}} <br>
+  {{activity['types']}}
+  </div>
+  {% endfor %}
+</body>
+</html>

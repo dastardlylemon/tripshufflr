@@ -1,50 +1,29 @@
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-<script src="http://code.jquery.com/jquery-latest.js"></script>
-<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=true"></script>
-<title>
-	tripShufflr
-</title>
+  <meta charset="utf-8">
+  <title>Tripshufflr</title>
+  <meta name="description" content="The HTML5 Herald">
+  <meta name="author" content="SitePoint">
+  <link rel="stylesheet" href="css/styles.css">
+  <!--[if lt IE 9]>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
 </head>
 <body>
+  <div id="tophalf">
+  	<div id="logo"></div>
+  	<div id="top-desc">We plan your trips so you don&rsquo;t have to.</div>
+  	<div id="search">
+      <form method="post">
+  		<input type="text" id="main-search" name="main-search" placeholder="Where do you want to go?"><button id="search-button">shuffle!</button>
+      </form>
+      {{error}}
+  	</div>
+    <!--
+  	<div id="curcheck"><input type="checkbox" name="curloc" value="curloc" id="curloc"><label for="curloc">Use current location</label></div>
+    !-->
 
-
-<form method = "get">
-  <select name="typestring">
-    <option value="default"> randomize </option>
-    <option value="food"> Food! nom</option>
-    <option value="adult"> Adult ;) </option>
-    <option value="shopping">Shopping! </option>
-    <option value="feminine">Women </option>
-  </select>
-	<label for="location">Location: </label>
-	<input type="text" id="location" name="location">
-  <input type="submit" value="Search!"><br>
-</form><br>
-
-<div> URL Call: {{url}} </div>
-<!-- 	<div id="coords">{{coords}}</div>
-  <h1> Autocomplete Search </h1>
-  {% for place in places %}
-	<div id="places">{{place['description']}}</div>
-  {% endfor %} -->
-
-  <h1> Nearby Search </h1>
-  {% for nearbyPlace in nearbyPlaces %}
-  <div>{{nearbyPlace['name']}} near {{nearbyPlace['vicinity']}}</div>
-  {% endfor %}
-
-  <h1> Text Search </h1>
-  {% for textPlace in textPlaces %}
-  <div>{{textPlace['name']}} in the vicinity of {{textPlace['formatted_address']}}</div>
-  <!-- <div>{{textPlace}}</div> -->
-  {% endfor %}
-
-  <h1> Radar Search </h1>
-  <!-- {% for place in places %}
-  <div>{{place}}</div>
-  {% endfor %} -->
-  {{places}}
-	
+  </div>
 </body>
 </html>
